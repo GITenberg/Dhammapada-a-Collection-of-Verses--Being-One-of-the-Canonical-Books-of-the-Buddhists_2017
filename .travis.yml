@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: K2cKUrZXiFMrZTCjG4KoG0F3a3VlLgXDwzDw48nNzLYnZ89BTy+spc/PSJJZckueOdCK33ZDWCB1jVp9gV19e9V8rU5J+Bae3O52y5VxOHuN3sg0EFCKGtM1+WEN3Dxciln/9PtTzjfWAY20hLedr1mqfz389IRYavFoBtbIEl8XXwTqQWGvghDqhhsEv7ETxwTw9dg57t2KBxFDmvibd7vT5xt2BFx75xZZasAGm7gG/M4VBljZUk5lP+cMm44psDHQZgh4nt3fyhpBuMMzaf5MF+7W1hMCbQpJe3WWJ67Oi6Y6INzhnujYmDaCFEYFFWiw0cQQdcsHuoxzwBME0AOyrJsidenbJORDfr0JqpyC2OzVE3cjXDdpk19velmpkZVSEPvRIP8GHYLO/ORRrGkddT9LCx2BhSymRKG1rzvONiZhTp8BpzacvKf0rZQpDoPp5+WVzj180zrQxK0wddmVSMjvK+Q7834fv6+JXrGqsZ45hjtCdeEBxQ6WoJ/1KljhFIjdqF2DRUtDAO9EbjVqdHwh23Kqn3iN+JS2j8cBH+R8/ZTeoECDoVDzeWoxVxehNujX76E4kLYZZt905KfsJU8zuz/bRT4cQU96RKmZOq8/f6NMpu8gPh36IZdC/WniNJ8AjoDdz+DYO1ljfp66LZKd6UX+WnhY/NKV8Hw=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/Dhammapada-a-Collection-of-Verses--Being-One-of-the-Canonical-Books-of-the-Buddhists_2017
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
