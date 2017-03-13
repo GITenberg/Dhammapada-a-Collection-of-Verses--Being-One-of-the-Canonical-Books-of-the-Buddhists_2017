@@ -1,5 +1,5 @@
 _repo: Dhammapada-a-Collection-of-Verses--Being-One-of-the-Canonical-Books-of-the-Buddhists_2017
-_version: 0.1.0
+_version: 0.2.0
 contributor:
   translator:
     agent_name: Müller, F. Max (Friedrich Max)
@@ -14,10 +14,15 @@ contributor:
     gutenberg_agent_id: '787'
     url: http://www.gutenberg.org/2009/agents/787
     wikipedia: http://en.wikipedia.org/wiki/Max_M%C3%BCller
+covers:
+- cover_type: generated
+  image_path: cover.png
 description: 'Transcribed from: The Sacred Books of the East, Translated by Various
   Oriental Scholars, Edited by F. Max Muller, Volume X, Part I. (The introduction,
   notes and index have been omitted.) See also PG#12894 and cf.: Path of virtue; Khuddakanikaya;
   Suttapitaka; Tipitaka'
+edition_identifiers:
+  edition_id: http://www.gutenberg.org/ebooks/2017#Dhammapada-a-Collection-of-Verses--Being-One-of-the-Canonical-Books-of-the-Buddhists
 gutenberg_bookshelf: Buddhism
 gutenberg_issued: '1999-12-01'
 gutenberg_type: Text
